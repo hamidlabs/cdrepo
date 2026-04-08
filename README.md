@@ -12,9 +12,7 @@
 
 <br>
 
-<img src=".github/assets/demo.gif" alt="cdrepo demo" width="600">
-
-[Watch full demo](https://github.com/hamidlabs/cdrepo/blob/main/.github/assets/demo.mp4)
+https://github.com/hamidlabs/cdrepo/blob/main/.github/assets/demo.mp4
 
 <br>
 
