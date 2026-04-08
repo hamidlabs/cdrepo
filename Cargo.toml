@@ -1,0 +1,50 @@
+[package]
+name = "cdrepo"
+version = "0.1.0"
+edition = "2021"
+description = "Browse GitHub repos from your terminal without cloning. Just cd owner/repo."
+license = "MIT"
+repository = "https://github.com/cdrepo/cdrepo"
+keywords = ["github", "cli", "fuse", "browse", "git"]
+categories = ["command-line-utilities", "development-tools", "filesystem"]
+
+[dependencies]
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# HTTP client (blocking for FUSE handlers, async for CLI)
+reqwest = { version = "0.12", features = ["json", "rustls-tls", "blocking"], default-features = false }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# CLI
+clap = { version = "4", features = ["derive"] }
+
+# FUSE filesystem (default = pure-rust mount in 0.17, no libfuse-dev needed to compile)
+fuser = "0.17"
+
+# Filesystem paths
+dirs = "6"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1"
+thiserror = "2"
+
+# Time
+libc = "0.2"
+
+# Colored output
+colored = "3"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
