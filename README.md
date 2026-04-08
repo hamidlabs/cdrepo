@@ -12,15 +12,7 @@
 
 <br>
 
-https://github.com/hamidlabs/cdrepo/blob/main/.github/assets/demo.mp4
-
-<br>
-
-```
-cd https://github.com/torvalds/linux
-ls
-cat Makefile
-```
+<img src=".github/assets/demo.gif" alt="cdrepo demo" width="680">
 
 </div>
 
