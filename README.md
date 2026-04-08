@@ -14,7 +14,7 @@
 
 <img src=".github/assets/demo.gif" alt="cdrepo demo" width="600">
 
-[Watch full demo](https://github.com/hamidlabs/cdrepo/releases/download/v0.1.0/cdrepo-demo.mp4)
+[Watch full demo](https://github.com/hamidlabs/cdrepo/blob/main/.github/assets/demo.mp4)
 
 <br>
 
