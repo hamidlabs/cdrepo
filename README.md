@@ -98,17 +98,9 @@ cd cli/cli
 # SSH format
 cd git@github.com:user/private-repo.git
 
-# Browse files normally
-ls
-cat src/main.rs
-tree src/ | head -20
+# Browse normally — ls, cat, grep, vim all just work
 
-# Navigate
-cd src/lib/
-cd ..
-
-# Exit — cd .. at repo root returns you to where you were
-cd ..
+# cd .. at repo root returns you to where you were
 
 # Manage mounts
 cdrepo list              # show mounted repos
