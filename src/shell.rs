@@ -37,14 +37,11 @@ __cdrepo_is_repo() {
         return 1
     fi
 
-    # Match GitHub URLs and SSH format
-    # https://github.com/owner/repo
-    # http://github.com/owner/repo
-    # github.com/owner/repo
-    # git@github.com:owner/repo.git
+    # Match GitHub URLs, SSH format, or owner/repo shorthand
     if [[ "$target" =~ ^https?://github\.com/[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+ ]] ||
        [[ "$target" =~ ^github\.com/[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+ ]] ||
-       [[ "$target" =~ ^git@github\.com:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+ ]]; then
+       [[ "$target" =~ ^git@github\.com:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+ ]] ||
+       [[ "$target" =~ ^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$ ]]; then
         return 0
     fi
 
@@ -140,6 +137,8 @@ function __cdrepo_is_repo
     else if string match -rq '^github\.com/[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+' "$target"
         return 0
     else if string match -rq '^git@github\.com:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+' "$target"
+        return 0
+    else if string match -rq '^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$' "$target"
         return 0
     end
 

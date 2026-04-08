@@ -47,7 +47,7 @@ fx/internal $ cd ..
 
 ## Features
 
-- **Just `cd` a link** — HTTPS, SSH, or short `github.com/owner/repo` format
+- **Just `cd` a link** — HTTPS, SSH, `github.com/owner/repo`, or just `owner/repo`
 - **Zero config** — one install command sets up everything
 - **Private repos** — uses your existing `gh` auth, no extra tokens
 - **Fast** — entire repo tree fetched in a single API call, files loaded lazily
@@ -60,7 +60,7 @@ fx/internal $ cd ..
 ## Install
 
 ```bash
-git clone https://github.com/AhmadHamid/cdrepo.git
+git clone https://github.com/hamidlabs/cdrepo.git
 cd cdrepo
 ./install.sh
 ```
@@ -92,6 +92,9 @@ cd https://github.com/rust-lang/rust
 # Short form
 cd github.com/cli/cli
 
+# Just owner/repo
+cd cli/cli
+
 # SSH format
 cd git@github.com:user/private-repo.git
 
@@ -120,6 +123,7 @@ cdrepo auth              # check auth status
 |--------|---------|
 | HTTPS URL | `cd https://github.com/owner/repo` |
 | Short URL | `cd github.com/owner/repo` |
+| Owner/Repo | `cd cli/cli` |
 | SSH | `cd git@github.com:owner/repo.git` |
 | With branch | `cd https://github.com/owner/repo/tree/develop` |
 | With path | `cd https://github.com/owner/repo/tree/main/src` |

@@ -46,6 +46,8 @@ function cd --description 'Change directory (with cdrepo GitHub support)'
         set is_repo 1
     else if string match -rq '^git@github\.com:[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+' "$target"
         set is_repo 1
+    else if string match -rq '^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$' "$target"
+        set is_repo 1
     end
 
     if test $is_repo -eq 1
