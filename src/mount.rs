@@ -29,18 +29,16 @@ pub async fn mount_repo(spec: &RepoSpec) -> Result<PathBuf> {
             .stderr(std::process::Stdio::null())
             .status();
         std::fs::remove_dir(&mount_path).ok();
-        tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
+        std::thread::sleep(std::time::Duration::from_millis(200));
     }
 
     std::fs::create_dir_all(&mount_path).context("failed to create mount point")?;
 
-    // Pre-resolve auth token so daemon inherits it via env (skip gh subprocess in daemon)
+    // Pre-resolve token so daemon gets it instantly via env
     let token = crate::auth::get_token()?;
-
     let exe = std::env::current_exe().context("cannot find cdrepo binary")?;
     let repo_arg = format!("{}/{}", spec.owner, spec.repo);
 
-    // Pass token via env so daemon skips the slow gh auth token subprocess
     let _child = std::process::Command::new(&exe)
         .args(["daemon", &repo_arg])
         .env("GH_TOKEN", &token)
@@ -50,7 +48,7 @@ pub async fn mount_repo(spec: &RepoSpec) -> Result<PathBuf> {
         .spawn()
         .context("failed to spawn cdrepo daemon")?;
 
-    wait_for_mount(&mount_path).await?;
+    wait_for_mount_sync(&mount_path)?;
 
     Ok(final_path(&mount_path, spec))
 }
@@ -139,13 +137,12 @@ fn is_mount_alive(path: &PathBuf) -> bool {
     std::fs::read_dir(path).is_ok()
 }
 
-async fn wait_for_mount(path: &PathBuf) -> Result<()> {
-    // Tight poll — daemon mounts instantly now (no API calls before mount)
+fn wait_for_mount_sync(path: &PathBuf) -> Result<()> {
     for _ in 0..200 {
         if is_mounted(path) {
             return Ok(());
         }
-        tokio::time::sleep(tokio::time::Duration::from_millis(20)).await;
+        std::thread::sleep(std::time::Duration::from_millis(10));
     }
     anyhow::bail!("Timed out waiting for FUSE mount at {}", path.display())
 }
